@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Smart — Nervous System Physiology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,560;9..144,680&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12141b;
+  --bg-alt:#181b24;
+  --surface:#1e2230;
+  --surface-2:#262b3c;
+  --border:#343b50;
+  --text:#eceef4;
+  --text-dim:#9aa1b8;
+  --text-faint:#6b7286;
+  --amber:#f2b84b;
+  --coral:#ec6f82;
+  --teal:#4fd1c5;
+  --violet:#9b8afb;
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(155,138,251,0.10), transparent 60%),
+    radial-gradient(1000px 500px at 100% 0%, rgba(79,209,197,0.08), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:'Inter',system-ui,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:680;letter-spacing:-0.01em;margin:0;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+a{color:inherit;}
+::selection{background:rgba(242,184,75,0.35);}
+
+/* ---------- Header ---------- */
+.site-header{
+  padding:34px 24px 0;
+  max-width:1180px;
+  margin:0 auto;
+  text-align:center;
+}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11.5px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin-bottom:10px;
+}
+.site-header h1{
+  font-size:clamp(2.1rem,5.5vw,3.4rem);
+  color:var(--text);
+}
+.site-header h1 span{color:var(--amber);}
+.site-header p.sub{
+  color:var(--text-dim);
+  max-width:560px;
+  margin:12px auto 0;
+  font-size:15px;
+}
+
+/* action potential trace */
+.trace-wrap{max-width:760px;margin:26px auto 6px;padding:0 12px;}
+.trace-wrap svg{width:100%;height:auto;display:block;}
+.trace-path{
+  fill:none;
+  stroke:var(--amber);
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-dasharray:900;
+  stroke-dashoffset:900;
+  animation:draw 3.2s ease-in-out infinite;
+  filter:drop-shadow(0 0 6px rgba(242,184,75,0.55));
+}
+.trace-baseline{stroke:var(--border);stroke-width:1;stroke-dasharray:4 4;}
+@keyframes draw{
+  0%{stroke-dashoffset:900;}
+  55%{stroke-dashoffset:0;}
+  85%{stroke-dashoffset:0;opacity:1;}
+  100%{stroke-dashoffset:-900;opacity:0.4;}
+}
+@media (prefers-reduced-motion: reduce){
+  .trace-path{animation:none;stroke-dashoffset:0;}
+}
+
+/* ---------- Nav ---------- */
+nav.tabs{
+  position:sticky;top:0;z-index:50;
+  background:rgba(18,20,27,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+  margin-top:28px;
+}
+.tabs-inner{
+  max-width:1180px;margin:0 auto;
+  display:flex;gap:4px;
+  overflow-x:auto;
+  padding:8px 16px;
+  scrollbar-width:none;
+}
+.tabs-inner::-webkit-scrollbar{display:none;}
+.tab-btn{
+  flex:0 0 auto;
+  display:flex;align-items:center;gap:8px;
+  background:none;border:none;cursor:pointer;
+  color:var(--text-dim);
+  font-family:'Inter',sans-serif;
+  font-size:13.5px;font-weight:600;
+  padding:10px 14px;border-radius:10px;
+  transition:color .2s ease, background .2s ease;
+  white-space:nowrap;
+}
+.tab-btn svg{width:16px;height:16px;flex:0 0 auto;}
+.tab-btn:hover{color:var(--text);background:rgba(255,255,255,0.04);}
+.tab-btn.active{color:var(--bg);background:var(--amber);}
+.tab-btn.active svg{stroke:var(--bg);}
+
+/* ---------- Main ---------- */
+main{max-width:1180px;margin:0 auto;padding:34px 20px 10px;}
+.panel{display:none;animation:fadein .35s ease;}
+.panel.active{display:block;}
+@keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.section-head{margin-bottom:22px;}
+.section-head h2{font-size:clamp(1.5rem,3.4vw,2rem);}
+.section-head p{color:var(--text-dim);font-size:14.5px;margin-top:6px;max-width:640px;}
+
+/* card grid (overview) */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+.rule-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px 20px 18px;
+  border-top:3px solid var(--accent,var(--amber));
+}
+.rule-card h3{font-size:16px;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rule-card h3 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent,var(--amber));flex:0 0 auto;}
+.rule-card ul{margin:0;padding-left:18px;color:var(--text-dim);font-size:13.6px;}
+.rule-card ul li{margin-bottom:6px;}
+.rule-card ul ul{margin-top:6px;}
+.rule-card b{color:var(--text);font-weight:600;}
+.rule-card .num{color:var(--teal);}
+
+.data-card{
+  background:var(--surface-2);
+  border:1px dashed var(--border);
+}
+.data-card .stat-row{display:flex;justify-content:space-between;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--border);color:var(--text-dim);}
+.data-card .stat-row:last-child{border-bottom:none;}
+.data-card .stat-row span.v{color:var(--amber);font-family:'IBM Plex Mono',monospace;font-weight:600;}
+
+/* ---------- Diagrams ---------- */
+.diagram-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+.diagram-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+}
+.diagram-card h3{font-size:17px;margin-bottom:4px;}
+.diagram-card .hint{color:var(--text-faint);font-size:12.5px;margin-bottom:14px;}
+.diagram-stage{
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:14px;
+}
+.info-line{
+  margin-top:12px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 14px;
+  font-size:13.6px;
+  color:var(--text-dim);
+  min-height:20px;
+}
+.info-line b{color:var(--text);}
+
+/* neuron svg */
+#neuronSvg{width:100%;height:auto;}
+.neuron-part{fill:none;stroke:var(--violet);stroke-width:2;}
+.hotspot{cursor:pointer;fill:var(--amber);stroke:var(--bg-alt);stroke-width:2;transition:r .15s ease, fill .15s ease;}
+.hotspot:hover, .hotspot.active{fill:var(--coral);r:9;}
+.hotspot-label{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--text-dim);pointer-events:none;}
+
+/* hierarchy tree */
+.tree{display:flex;flex-direction:column;gap:6px;}
+.tree-row{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:8px;
+  cursor:pointer;border:1px solid transparent;
+  font-size:13.6px;
+  transition:background .15s ease, border-color .15s ease;
+}
+.tree-row:hover{background:rgba(255,255,255,0.03);}
+.tree-row.active{background:var(--surface-2);border-color:var(--border);}
+.tree-row .bar{width:4px;height:16px;border-radius:2px;background:var(--accent,var(--teal));flex:0 0 auto;}
+.tree-row b{font-weight:600;color:var(--text);}
+.lvl0{margin-left:0;}
+.lvl1{margin-left:22px;}
+.lvl2{margin-left:44px;}
+.lvl3{margin-left:66px;}
+.lvl4{margin-left:88px;}
+
+/* glial cards */
+.glia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.glia-card{
+  perspective:1000px;height:150px;cursor:pointer;
+}
+.glia-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;transition:transform .5s ease;
+}
+.glia-card.flipped .glia-inner{transform:rotateY(180deg);}
+.glia-face{
+  position:absolute;inset:0;
+  border-radius:10px;padding:14px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  backface-visibility:hidden;
+  border:1px solid var(--border);
+}
+.glia-front{background:var(--surface-2);}
+.glia-back{background:var(--surface-2);transform:rotateY(180deg);font-size:12px;color:var(--text-dim);overflow:auto;}
+.glia-front .name{font-family:'Fraunces',serif;font-size:16px;color:var(--text);}
+.glia-badge{
+  align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;
+  padding:3px 8px;border-radius:20px;letter-spacing:0.06em;
+}
+.badge-cns{background:rgba(79,209,197,0.15);color:var(--teal);}
+.badge-pns{background:rgba(155,138,251,0.15);color:var(--violet);}
+.glia-flip-hint{font-size:10.5px;color:var(--text-faint);}
+
+/* ion map */
+.ion-stage{display:flex;align-items:stretch;gap:0;min-height:200px;}
+.ion-zone{flex:1;padding:14px;display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;}
+.ion-zone-label{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-faint);margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase;}
+.membrane-bar{width:14px;background:repeating-linear-gradient(180deg,var(--surface-2) 0 6px, var(--border) 6px 8px);border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.ion-badge{
+  font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+  padding:6px 10px;border-radius:20px;cursor:pointer;border:1px solid transparent;
+  transition:transform .15s ease;
+}
+.ion-badge:hover{transform:translateY(-2px);}
+.ion-na{background:rgba(236,111,130,0.18);color:var(--coral);}
+.ion-cl{background:rgba(155,138,251,0.18);color:var(--violet);}
+.ion-k{background:rgba(79,209,197,0.18);color:var(--teal);}
+.ion-pr{background:rgba(242,184,75,0.18);color:var(--amber);}
+
+/* pump */
+.pump-stage{position:relative;height:190px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg, rgba(236,111,130,0.05) 0%, rgba(236,111,130,0.05) 48%, var(--border) 48%, var(--border) 52%, rgba(79,209,197,0.05) 52%, rgba(79,209,197,0.05) 100%);}
+.pump-zone-label{position:absolute;left:12px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-faint);letter-spacing:.08em;text-transform:uppercase;}
+.pump-out-label{top:8px;}
+.pump-in-label{bottom:8px;}
+.pump-core{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:46px;height:46px;border-radius:50%;
+  background:var(--surface-2);border:2px solid var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--amber);text-align:center;
+}
+.ion-dot{
+  position:absolute;width:16px;height:16px;border-radius:50%;
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;
+  display:flex;align-items:center;justify-content:center;color:#0d0f14;font-weight:700;
+  transition:top 1.1s cubic-bezier(.65,0,.35,1), left 1.1s cubic-bezier(.65,0,.35,1), opacity .3s ease;
+}
+.dot-na{background:var(--coral);}
+.dot-k{background:var(--teal);}
+
+/* gated channels */
+.gate-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.gate-tab{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+  font-size:12.5px;font-weight:600;padding:7px 13px;border-radius:20px;cursor:pointer;
+}
+.gate-tab.active{background:var(--violet);color:#161726;border-color:var(--violet);}
+.gate-visual{display:flex;align-items:center;justify-content:center;padding:20px 0;}
+.gate-flap{width:36px;height:60px;background:var(--surface-2);border:2px solid var(--violet);border-radius:6px;transition:transform .5s ease;}
+.gate-flap.left{transform-origin:right center;border-right:none;border-radius:6px 0 0 6px;}
+.gate-flap.right{transform-origin:left center;border-left:none;border-radius:0 6px 6px 0;}
+.gate-visual.open .gate-flap.left{transform:rotate(-24deg) translateX(-4px);}
+.gate-visual.open .gate-flap.right{transform:rotate(24deg) translateX(4px);}
+.gate-btn{
+  background:var(--amber);color:#221a09;border:none;font-weight:700;font-size:13px;
+  padding:9px 18px;border-radius:20px;cursor:pointer;margin-top:6px;
+}
+.gate-btn:hover{filter:brightness(1.08);}
+
+/* graded potential graph */
+.graph-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
+.graph-btn{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+  font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;
+}
+.graph-btn.active{background:var(--coral);color:#210e13;border-color:var(--coral);}
+#gradedPath{fill:none;stroke:var(--coral);stroke-width:2.6;transition:d .5s ease;}
+.graph-peak-label{font-family:'IBM Plex Mono',monospace;fill:var(--text);font-size:11px;}
+
+/* generic small buttons */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+
+/* ---------- Mini map ---------- */
+.mm-wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:start;}
+@media (max-width:760px){.mm-wrap{grid-template-columns:1fr;}}
+.mm-stage{
+  position:relative;width:100%;aspect-ratio:1/1;max-width:520px;margin:0 auto;
+}
+.mm-svg-lines{position:absolute;inset:0;width:100%;height:100%;}
+.mm-svg-lines line{stroke:var(--border);stroke-width:1.4;}
+.mm-node{
+  position:absolute;transform:translate(-50%,-50%);
+  cursor:pointer;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  width:110px;
+}
+.mm-node .circle{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--surface-2);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--text-dim);
+  transition:border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.mm-node span.lbl{font-size:11.5px;color:var(--text-dim);font-weight:600;line-height:1.25;}
+.mm-node.center .circle{width:82px;height:82px;background:var(--amber);border-color:var(--amber);color:#221a09;font-weight:700;font-size:11px;box-shadow:0 0 22px rgba(242,184,75,0.35);}
+.mm-node.center span.lbl{color:var(--text);}
+.mm-node:hover .circle, .mm-node.active .circle{border-color:var(--teal);transform:scale(1.06);}
+.mm-node.active .circle{background:var(--teal);color:#0c211f;}
+.mm-panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:20px;min-height:220px;
+}
+.mm-panel h4{font-size:15.5px;margin-bottom:10px;color:var(--text);font-family:'Fraunces',serif;}
+.mm-panel ul{padding-left:18px;margin:0;color:var(--text-dim);font-size:13.6px;}
+.mm-panel ul li{margin-bottom:8px;}
+.mm-panel .placeholder{color:var(--text-faint);font-size:13.5px;}
+
+/* ---------- Flashcards ---------- */
+.fc-wrap{max-width:520px;margin:0 auto;}
+.fc-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:var(--text-faint);font-family:'IBM Plex Mono',monospace;}
+.fc-track{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:18px;}
+.fc-track-fill{height:100%;background:var(--teal);width:0%;transition:width .3s ease;}
+.fc-card{
+  perspective:1400px;height:260px;cursor:pointer;
+}
+.fc-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,.2,.2,1);}
+.fc-card.flipped .fc-inner{transform:rotateY(180deg);}
+.fc-face{
+  position:absolute;inset:0;border-radius:16px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:26px;backface-visibility:hidden;border:1px solid var(--border);
+}
+.fc-front{background:var(--surface);}
+.fc-back{background:var(--surface-2);transform:rotateY(180deg);}
+.fc-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent,var(--teal));margin-bottom:14px;}
+.fc-front .term{font-family:'Fraunces',serif;font-size:24px;color:var(--text);}
+.fc-back .def{font-size:14.5px;color:var(--text-dim);line-height:1.55;}
+.fc-hint{margin-top:14px;font-size:11.5px;color:var(--text-faint);}
+.fc-controls{display:flex;justify-content:center;gap:10px;margin-top:20px;}
+.fc-btn{
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+  font-size:13px;font-weight:600;padding:10px 16px;border-radius:9px;cursor:pointer;
+}
+.fc-btn:hover{border-color:var(--teal);}
+.fc-btn.primary{background:var(--teal);color:#0c211f;border-color:var(--teal);}
+
+/* ---------- Quiz ---------- */
+.quiz-top{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap;
+}
+.quiz-score{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);}
+.quiz-score b{color:var(--amber);}
+.quiz-track{height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:20px;}
+.quiz-track-fill{height:100%;background:var(--coral);width:0%;transition:width .3s ease;}
+.q-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;max-width:640px;margin:0 auto;
+}
+.q-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-faint);margin-bottom:8px;}
+.q-text{font-size:16.5px;font-weight:600;margin-bottom:18px;color:var(--text);}
+.q-options{display:flex;flex-direction:column;gap:9px;}
+.q-opt{
+  text-align:left;background:var(--surface-2);border:1px solid var(--border);color:var(--text);
+  padding:11px 14px;border-radius:9px;cursor:pointer;font-size:14px;
+  display:flex;align-items:center;gap:10px;
+}
+.q-opt:hover{border-color:var(--violet);}
+.q-opt .k{font-family:'IBM Plex Mono',monospace;color:var(--text-faint);font-size:12px;}
+.q-opt.correct{background:rgba(79,209,197,0.15);border-color:var(--teal);}
+.q-opt.incorrect{background:rgba(236,111,130,0.15);border-color:var(--coral);}
+.q-opt[disabled]{cursor:default;}
+.q-feedback{margin-top:14px;font-size:13px;color:var(--text-dim);min-height:18px;}
+.q-nav{display:flex;justify-content:space-between;margin-top:20px;}
+.q-btn{background:var(--surface-2);border:1px solid var(--border);color:var(--text);font-size:13px;font-weight:600;padding:10px 16px;border-radius:9px;cursor:pointer;}
+.q-btn:hover{border-color:var(--amber);}
+.q-btn:disabled{opacity:.4;cursor:default;}
+.quiz-done{text-align:center;padding:40px 20px;}
+.quiz-done h3{font-size:26px;margin-bottom:8px;}
+.quiz-done p{color:var(--text-dim);margin-bottom:20px;}
+
+/* ---------- Footer ---------- */
+footer{
+  margin-top:60px;padding:26px 20px 40px;text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--text-faint);font-size:12px;
+}
+footer .brand{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;letter-spacing:.04em;}
+
+@media (max-width:600px){
+  .ion-stage{flex-direction:column;}
+  .membrane-bar{width:100%;height:10px;}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">Nervous System Physiology</div>
+  <h1>Study <span>Smart</span></h1>
+  <p class="sub">A tight, exam-ready pass through neurons, glia, the CNS/PNS split, and the resting &amp; graded membrane potential — built to review, not to re-read a lecture.</p>
+  <div class="trace-wrap">
+    <svg viewBox="0 0 600 90" preserveAspectRatio="none">
+      <line class="trace-baseline" x1="0" y1="60" x2="600" y2="60"/>
+      <path class="trace-path" d="M0,60 L180,60 L205,60 C215,60 218,10 228,10 C236,10 238,80 248,80 C256,80 260,60 280,60 L600,60"/>
+    </svg>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="tabs-inner" id="tabsInner">
+    <button class="tab-btn active" data-panel="overview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      Overview
+    </button>
+    <button class="tab-btn" data-panel="diagrams">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7l7-0M7.5 8.3L11 16M16.5 8.3L13 16"/></svg>
+      Diagrams
+    </button>
+    <button class="tab-btn" data-panel="minimap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="2.6"/><circle cx="12" cy="4" r="1.8"/><circle cx="19" cy="9" r="1.8"/><circle cx="19" cy="17" r="1.8"/><circle cx="5" cy="17" r="1.8"/><path d="M12 6.2V9.6M17.4 10.2L14 12M17.4 15.6L14 13.6M6.6 15.6L10 13.6"/></svg>
+      Mini Map
+    </button>
+    <button class="tab-btn" data-panel="flashcards">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="14" height="10" rx="2"/><path d="M7.5 3.5h13a1 1 0 0 1 1 1V13"/></svg>
+      Flash Cards
+    </button>
+    <button class="tab-btn" data-panel="quiz">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h14v16l-4-3-3 3-3-3-4 3z"/><path d="M8.5 9h7M8.5 12.5h4.5"/></svg>
+      Quiz Bank
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="panel active" id="panel-overview">
+  <div class="section-head">
+    <h2>Core rules, not a lecture</h2>
+    <p>Everything worth remembering, compressed. Read this before diagrams, cards, or the quiz.</p>
+  </div>
+  <div class="card-grid">
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>Nervous System — basics</h3>
+      <ul>
+        <li>Includes <b>all neural tissue</b> in the body.</li>
+        <li>Functional unit = the <b>neuron</b>.</li>
+        <li>Neurons are supported by <b>neuroglia (glial cells)</b>, which separate &amp; protect them.</li>
+        <li>Organs of the NS: <b>brain, spinal cord, receptors, nerves</b>.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>CNS vs PNS</h3>
+      <ul>
+        <li><b>CNS</b> = brain + spinal cord → integrates, processes &amp; coordinates sensory data and motor commands; seat of intelligence, memory, learning, emotion.</li>
+        <li><b>PNS</b> = all neural tissue outside the CNS → delivers sensory info to the CNS, carries motor commands to the periphery.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>PNS divisions</h3>
+      <ul>
+        <li><b>Afferent</b> → sensory → receptors → CNS.</li>
+        <li><b>Efferent</b> → motor → CNS → effectors.
+          <ul>
+            <li><b>Somatic (SNS)</b> → skeletal muscle.</li>
+            <li><b>Autonomic (ANS)</b> → smooth/cardiac muscle &amp; glands.
+              <ul>
+                <li>Sympathetic → fight or flight.</li>
+                <li>Parasympathetic → rest &amp; housekeeping.</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>Resting membrane potential</h3>
+      <ul>
+        <li><b>ECF</b> is high in <b>Na⁺, Cl⁻</b>.</li>
+        <li><b>ICF</b> is high in <b>K⁺</b> and negatively charged proteins.</li>
+        <li>Ions cross the membrane only through <b>channels</b> — never freely through the lipid bilayer.</li>
+        <li>Resting potential ≈ <b class="num">-70 mV</b>.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--amber)">
+      <h3><span class="dot"></span>Na⁺/K⁺ ATPase pump</h3>
+      <ul>
+        <li>Ejects <b>3 Na⁺</b> out for every <b>2 K⁺</b> in.</li>
+        <li>Active transport — requires <b>ATP</b>.</li>
+        <li>Compensates for slow Na⁺ leak in / K⁺ leak out.</li>
+        <li>Net effect: contributes to the <b>negativity</b> of the transmembrane potential.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--teal)">
+      <h3><span class="dot"></span>Ion channel types</h3>
+      <ul>
+        <li><b>Leak (passive)</b> — always open; permeability shifts with local conditions.</li>
+        <li><b>Chemically gated</b> — open on ligand binding (e.g., ACh at the NMJ).</li>
+        <li><b>Voltage gated</b> — open/close with membrane potential change; key to the action potential.</li>
+        <li><b>Mechanically gated</b> — open with membrane distortion (touch, pressure, vibration).</li>
+      </ul>
+    </div>
+
+    <div class="rule-card" style="--accent:var(--violet)">
+      <h3><span class="dot"></span>Graded (local) potentials</h3>
+      <ul>
+        <li>Localized change in Vm that <b>cannot spread far</b> from the stimulus site.</li>
+        <li><b>Depolarization</b> → shift toward 0 mV or above (Na⁺ enters).</li>
+        <li><b>Hyperpolarization</b> → shift more negative, e.g. -80 mV (K⁺ leaves).</li>
+        <li>Spreads via <b>local current</b>; effect decays with distance.</li>
+        <li>Stronger stimulus → more channels open → larger, wider effect.</li>
+      </ul>
+    </div>
+
+    <div class="rule-card data-card" style="--accent:var(--coral)">
+      <h3><span class="dot"></span>Numbers worth memorizing</h3>
+      <div class="stat-row"><span>Resting membrane potential</span><span class="v">-70 mV</span></div>
+      <div class="stat-row"><span>Hyperpolarized shift (example)</span><span class="v">-80 mV</span></div>
+      <div class="stat-row"><span>Na⁺/K⁺ pump ratio</span><span class="v">3 out : 2 in</span></div>
+      <div class="stat-row"><span>Core glial cell types</span><span class="v">6</span></div>
+      <div class="stat-row"><span>Gated channel classes</span><span class="v">3</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== DIAGRAMS ===================== -->
+<section class="panel" id="panel-diagrams">
+  <div class="section-head">
+    <h2>Click into every structure</h2>
+    <p>Seven interactive builds — tap the elements to reveal what each one actually does.</p>
+  </div>
+
+  <div class="diagram-grid">
+
+    <!-- Neuron -->
+    <div class="diagram-card">
+      <h3>1 · Neuron anatomy</h3>
+      <div class="hint">Click a highlighted point on the neuron.</div>
+      <div class="diagram-stage">
+        <svg id="neuronSvg" viewBox="0 0 520 200">
+          <!-- dendrites -->
+          <path class="neuron-part" d="M55,95 L30,70 M55,95 L25,90 M55,95 L32,110 M60,80 L38,55 M62,120 L40,140"/>
+          <!-- soma -->
+          <ellipse class="neuron-part" cx="90" cy="100" rx="42" ry="38"/>
+          <circle cx="80" cy="100" r="13" fill="none" stroke="var(--coral)" stroke-width="2"/>
+          <!-- axon with myelin segments -->
+          <line class="neuron-part" x1="132" y1="100" x2="145" y2="100"/>
+          <rect x="150" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="188" y1="100" x2="200" y2="100"/>
+          <rect x="204" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="242" y1="100" x2="254" y2="100"/>
+          <rect x="258" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="296" y1="100" x2="308" y2="100"/>
+          <rect x="312" y="90" width="38" height="20" rx="10" fill="var(--surface-2)" stroke="var(--teal)" stroke-width="2"/>
+          <line class="neuron-part" x1="350" y1="100" x2="400" y2="100"/>
+          <!-- terminal branches -->
+          <path class="neuron-part" d="M400,100 L440,80 M400,100 L445,100 M400,100 L440,120 M420,88 L455,72 M420,112 L455,128"/>
+
+          <!-- hotspots -->
+          <circle class="hotspot" data-key="dendrite" cx="34" cy="70" r="6.5"/>
+          <text class="hotspot-label" x="6" y="52">Dendrite</text>
+
+          <circle class="hotspot" data-key="nucleus" cx="80" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="cellbody" cx="98" cy="132" r="6.5"/>
+          <text class="hotspot-label" x="75" y="152">Cell body</text>
+
+          <circle class="hotspot" data-key="axonhillock" cx="138" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="myelin" cx="223" cy="100" r="6.5"/>
+          <text class="hotspot-label" x="196" y="76">Myelin sheath</text>
+
+          <circle class="hotspot" data-key="node" cx="197" cy="100" r="6.5"/>
+
+          <circle class="hotspot" data-key="terminal" cx="447" cy="100" r="6.5"/>
+          <text class="hotspot-label" x="420" y="145">Axon terminal</text>
+        </svg>
+      </div>
+      <div class="info-line" id="neuronInfo">Tap any amber dot on the neuron to see what that part does.</div>
+    </div>
+
+    <!-- Hierarchy -->
+    <div class="diagram-card">
+      <h3>2 · CNS / PNS organization</h3>
+      <div class="hint">Click any row to expand its role.</div>
+      <div class="diagram-stage">
+        <div class="tree" id="hierarchyTree"></div>
+      </div>
+      <div class="info-line" id="hierarchyInfo">Select a division to read its function.</div>
+    </div>
+
+    <!-- Glia -->
+    <div class="diagram-card">
+      <h3>3 · Glial cell explorer</h3>
+      <div class="hint">Click a card to flip it over.</div>
+      <div class="glia-grid" id="gliaGrid"></div>
+    </div>
+
+    <!-- Ion map -->
+    <div class="diagram-card">
+      <h3>4 · ECF vs ICF ion map</h3>
+      <div class="hint">Click any ion badge for its role.</div>
+      <div class="diagram-stage">
+        <div class="ion-stage">
+          <div class="ion-zone" id="ecfZone"><div class="ion-zone-label">Extracellular fluid</div></div>
+          <div class="membrane-bar"></div>
+          <div class="ion-zone" id="icfZone"><div class="ion-zone-label">Intracellular fluid</div></div>
+        </div>
+      </div>
+      <div class="info-line" id="ionInfo">Click Na⁺, Cl⁻, K⁺ or Pr⁻ to see why each ion sits where it does.</div>
+    </div>
+
+    <!-- Pump -->
+    <div class="diagram-card">
+      <h3>5 · Sodium–potassium pump</h3>
+      <div class="hint">Run one full pump cycle.</div>
+      <div class="diagram-stage">
+        <div class="pump-stage" id="pumpStage">
+          <div class="pump-zone-label pump-out-label">Outside cell</div>
+          <div class="pump-zone-label pump-in-label">Inside cell</div>
+          <div class="pump-core">Na⁺/K⁺<br>ATPase</div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="gate-btn" id="pumpBtn">Run pump cycle</button></div>
+      <div class="info-line" id="pumpInfo">Each cycle: 3 Na⁺ leave the cell, 2 K⁺ enter — powered by ATP.</div>
+    </div>
+
+    <!-- Gated channels -->
+    <div class="diagram-card">
+      <h3>6 · Gated channel types</h3>
+      <div class="hint">Choose a channel class, then activate it.</div>
+      <div class="gate-tabs" id="gateTabs">
+        <button class="gate-tab active" data-key="chemical">Chemically gated</button>
+        <button class="gate-tab" data-key="voltage">Voltage gated</button>
+        <button class="gate-tab" data-key="mechanical">Mechanically gated</button>
+      </div>
+      <div class="diagram-stage">
+        <div class="gate-visual" id="gateVisual">
+          <div class="gate-flap left"></div>
+          <div class="gate-flap right"></div>
+        </div>
+      </div>
+      <div class="btn-row"><button class="gate-btn" id="gateBtn">Activate channel</button></div>
+      <div class="info-line" id="gateInfo"></div>
+    </div>
+
+    <!-- Graded potential graph -->
+    <div class="diagram-card">
+      <h3>7 · Graded potential curve</h3>
+      <div class="hint">Compare stimulus types against the -70 mV baseline.</div>
+      <div class="graph-controls">
+        <button class="graph-btn active" data-key="weak">Weak depolarizing</button>
+        <button class="graph-btn" data-key="strong">Strong depolarizing</button>
+        <button class="graph-btn" data-key="hyper">Hyperpolarizing</button>
+      </div>
+      <div class="diagram-stage">
+        <svg viewBox="0 0 400 160" style="width:100%;height:auto;">
+          <line x1="20" y1="100" x2="380" y2="100" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4"/>
+          <text class="graph-peak-label" x="24" y="112">-70 mV baseline</text>
+          <path id="gradedPath" d="M20,100 C100,100 150,100 180,100 C190,100 210,100 220,100 C250,100 300,100 380,100"/>
+          <text class="graph-peak-label" id="gradedPeakLabel" x="330" y="30"></text>
+        </svg>
+      </div>
+      <div class="info-line" id="gradedInfo">Amplitude decreases with distance from the stimulus site — the effect spreads passively via local current.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== MINI MAP ===================== -->
+<section class="panel" id="panel-minimap">
+  <div class="section-head">
+    <h2>The whole topic, one glance</h2>
+    <p>Click a node to open its branch on the right.</p>
+  </div>
+  <div class="mm-wrap">
+    <div class="mm-stage" id="mmStage">
+      <svg class="mm-svg-lines" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <line x1="50" y1="50" x2="50" y2="15"/>
+        <line x1="50" y1="50" x2="85" y2="35"/>
+        <line x1="50" y1="50" x2="80" y2="80"/>
+        <line x1="50" y1="50" x2="20" y2="80"/>
+        <line x1="50" y1="50" x2="15" y2="35"/>
+      </svg>
+      <div class="mm-node center" data-key="center" style="left:50%;top:50%;">
+        <div class="circle">NS PHYSIO</div>
+      </div>
+      <div class="mm-node" data-key="cells" style="left:50%;top:15%;">
+        <div class="circle">🧠</div><span class="lbl">Cells &amp; Anatomy</span>
+      </div>
+      <div class="mm-node" data-key="cnspns" style="left:85%;top:35%;">
+        <div class="circle">🧩</div><span class="lbl">CNS &amp; PNS</span>
+      </div>
+      <div class="mm-node" data-key="ans" style="left:80%;top:80%;">
+        <div class="circle">⚡</div><span class="lbl">ANS Divisions</span>
+      </div>
+      <div class="mm-node" data-key="membrane" style="left:20%;top:80%;">
+        <div class="circle">🧪</div><span class="lbl">Membrane Potential</span>
+      </div>
+      <div class="mm-node" data-key="channels" style="left:15%;top:35%;">
+        <div class="circle">🚪</div><span class="lbl">Channels &amp; Graded Potentials</span>
+      </div>
+    </div>
+    <div class="mm-panel" id="mmPanel">
+      <h4>Nervous System Physiology</h4>
+      <p class="placeholder">Click any surrounding node to open that branch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FLASHCARDS ===================== -->
+<section class="panel" id="panel-flashcards">
+  <div class="section-head">
+    <h2>Flash cards</h2>
+    <p>30 terms — the full topic. Tap a card to flip it.</p>
+  </div>
+  <div class="fc-wrap">
+    <div class="fc-progress"><span id="fcCount">1 / 30</span><span id="fcCatLabel"></span></div>
+    <div class="fc-track"><div class="fc-track-fill" id="fcTrackFill"></div></div>
+    <div class="fc-card" id="fcCard">
+      <div class="fc-inner">
+        <div class="fc-face fc-front">
+          <div class="fc-tag" id="fcTagFront"></div>
+          <div class="term" id="fcTerm"></div>
+          <div class="fc-hint">Tap to reveal definition</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-tag" id="fcTagBack"></div>
+          <div class="def" id="fcDef"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-controls">
+      <button class="fc-btn" id="fcPrev">← Prev</button>
+      <button class="fc-btn primary" id="fcShuffle">Shuffle</button>
+      <button class="fc-btn" id="fcNext">Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== QUIZ ===================== -->
+<section class="panel" id="panel-quiz">
+  <div class="section-head">
+    <h2>Quiz bank</h2>
+    <p>32 MCQs. Answer choices reshuffle every time you (re)start.</p>
+  </div>
+  <div class="quiz-top">
+    <div class="quiz-score">Score: <b id="quizScore">0</b> / <span id="quizTotal">32</span></div>
+    <button class="fc-btn" id="quizRestart">Reshuffle &amp; restart</button>
+  </div>
+  <div class="quiz-track"><div class="quiz-track-fill" id="quizTrackFill"></div></div>
+  <div id="quizArea"></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="brand">STUDY SMART · Nervous System Physiology</div>
+  <div>© <span id="yearNow"></span> Anmar Taha. All rights reserved.</div>
+</footer>
+
+<script>
+/* ============================================================
+   TAB NAVIGATION
+============================================================ */
+document.getElementById('yearNow').textContent = new Date().getFullYear();
+
+const tabBtns = document.querySelectorAll('.tab-btn');
+const panels = document.querySelectorAll('.panel');
+tabBtns.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabBtns.forEach(b=>b.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.panel).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+/* ============================================================
+   DIAGRAM 1 — NEURON
+============================================================ */
+const neuronParts = {
+  dendrite:{name:'Dendrite', text:'Receives signals from other neurons or receptors and conducts graded potentials toward the cell body.'},
+  nucleus:{name:'Nucleus', text:"Holds the neuron's genetic material; sits inside the soma."},
+  cellbody:{name:'Cell Body (Soma)', text:'Integrates incoming signals; contains the nucleus and most organelles.'},
+  axonhillock:{name:'Axon Hillock', text:'Trigger zone where the axon leaves the soma; dense in voltage-gated Na⁺ channels — action potentials usually start here.'},
+  myelin:{name:'Myelin Sheath', text:'Insulating wrap formed by Schwann cells (PNS) or oligodendrocytes (CNS); speeds up impulse conduction.'},
+  node:{name:'Node of Ranvier', text:'Gap between myelin segments where the membrane is exposed — enables saltatory conduction.'},
+  terminal:{name:'Axon Terminal', text:'End branches of the axon that release neurotransmitter at the synapse.'}
+};
+document.querySelectorAll('#neuronSvg .hotspot').forEach(dot=>{
+  dot.addEventListener('click', ()=>{
+    document.querySelectorAll('#neuronSvg .hotspot').forEach(d=>d.classList.remove('active'));
+    dot.classList.add('active');
+    const p = neuronParts[dot.dataset.key];
+    document.getElementById('neuronInfo').innerHTML = '<b>'+p.name+'</b> — '+p.text;
+  });
+});
+
+/* ============================================================
+   DIAGRAM 2 — CNS/PNS HIERARCHY
+============================================================ */
+const hierarchy = [
+  {id:'ns', label:'Nervous System', level:0, color:'var(--amber)', text:'All neural tissue in the body; basic functional unit is the neuron, supported by neuroglia.'},
+  {id:'cns', label:'CNS — Brain & Spinal Cord', level:1, color:'var(--teal)', text:'Integrates, processes & coordinates sensory data and motor commands; seat of intelligence, memory, learning & emotion.'},
+  {id:'pns', label:'PNS', level:1, color:'var(--violet)', text:'All neural tissue outside the CNS; delivers sensory info to the CNS and carries motor commands to the periphery.'},
+  {id:'afferent', label:'Afferent (Sensory) Division', level:2, color:'var(--violet)', text:'Brings sensory information to the CNS from receptors in peripheral tissues & organs.'},
+  {id:'efferent', label:'Efferent (Motor) Division', level:2, color:'var(--violet)', text:'Carries motor commands from the CNS to muscles & glands (effectors).'},
+  {id:'somatic', label:'Somatic Nervous System', level:3, color:'var(--coral)', text:'Controls skeletal muscle contractions — voluntary or involuntary.'},
+  {id:'autonomic', label:'Autonomic Nervous System (ANS)', level:3, color:'var(--coral)', text:'Visceral motor system; involuntary regulation of smooth muscle, cardiac muscle & glandular secretion.'},
+  {id:'sympathetic', label:'Sympathetic', level:4, color:'var(--amber)', text:"Mobilizes body systems during activity — \u2018fight or flight\u2019."},
+  {id:'parasympathetic', label:'Parasympathetic', level:4, color:'var(--amber)', text:"Conserves energy; promotes \u2018housekeeping\u2019 functions during rest."}
+];
+const treeEl = document.getElementById('hierarchyTree');
+hierarchy.forEach(row=>{
+  const div = document.createElement('div');
+  div.className = 'tree-row lvl'+row.level;
+  div.innerHTML = '<span class="bar" style="background:'+row.color+'"></span><b>'+row.label+'</b>';
+  div.addEventListener('click', ()=>{
+    treeEl.querySelectorAll('.tree-row').forEach(r=>r.classList.remove('active'));
+    div.classList.add('active');
+    document.getElementById('hierarchyInfo').innerHTML = '<b>'+row.label+'</b> — '+row.text;
+  });
+  treeEl.appendChild(div);
+});
+
+/* ============================================================
+   DIAGRAM 3 — GLIAL CELLS
+============================================================ */
+const gliaData = [
+  {name:'Astrocyte', where:'CNS', func:'Maintains the blood-brain barrier, provides structural support, regulates ion/nutrient/gas levels, absorbs & recycles neurotransmitters, and forms scar tissue after injury.'},
+  {name:'Oligodendrocyte', where:'CNS', func:'Myelinates CNS axons and provides structural framework.'},
+  {name:'Microglia', where:'CNS', func:'Removes cell debris, wastes & pathogens by phagocytosis.'},
+  {name:'Ependymal cell', where:'CNS', func:'Lines the ventricles & central canal; assists in producing, circulating & monitoring cerebrospinal fluid.'},
+  {name:'Schwann cell', where:'PNS', func:'Surrounds PNS axons; responsible for myelination of peripheral axons; participates in repair after injury.'},
+  {name:'Satellite cell', where:'PNS', func:'Surrounds neuron cell bodies in ganglia; regulates O₂, CO₂, nutrient & neurotransmitter levels around them.'}
+];
+const gliaGrid = document.getElementById('gliaGrid');
+gliaData.forEach(g=>{
+  const card = document.createElement('div');
+  card.className='glia-card';
+  card.innerHTML =
+    '<div class="glia-inner">'+
+      '<div class="glia-face glia-front">'+
+        '<span class="glia-badge '+(g.where==='CNS'?'badge-cns':'badge-pns')+'">'+g.where+'</span>'+
+        '<div><div class="name">'+g.name+'</div><div class="glia-flip-hint">tap to flip</div></div>'+
+      '</div>'+
+      '<div class="glia-face glia-back">'+g.func+'</div>'+
+    '</div>';
+  card.addEventListener('click', ()=>card.classList.toggle('flipped'));
+  gliaGrid.appendChild(card);
+});
+
+/* ============================================================
+   DIAGRAM 4 — ION MAP
+============================================================ */
+const ionInfo = {
+  na:{label:'Na⁺ ×8', note:'Sodium is concentrated outside the cell; rushes in through Na⁺ channels during depolarization.'},
+  cl:{label:'Cl⁻ ×5', note:'Chloride sits mainly outside the cell, alongside sodium.'},
+  k:{label:'K⁺ ×8', note:'Potassium is concentrated inside the cell; leaks out through leak channels, pulling the resting potential negative.'},
+  pr:{label:'Pr⁻ ×5', note:'Large, negatively charged proteins are trapped inside — they cannot cross the membrane.'}
+};
+function buildIonBadges(containerId, keys, counts){
+  const el = document.getElementById(containerId);
+  keys.forEach((k,i)=>{
+    for(let n=0;n<counts[i];n++){
+      const b = document.createElement('div');
+      b.className='ion-badge ion-'+k;
+      b.textContent = (k==='na'?'Na⁺':k==='cl'?'Cl⁻':k==='k'?'K⁺':'Pr⁻');
+      b.addEventListener('click', ()=>{
+        document.getElementById('ionInfo').innerHTML = '<b>'+ionInfo[k].label+'</b> — '+ionInfo[k].note;
+      });
+      el.appendChild(b);
+    }
+  });
+}
+buildIonBadges('ecfZone', ['na','cl'], [8,5]);
+buildIonBadges('icfZone', ['k','pr'], [8,5]);
+
+/* ============================================================
+   DIAGRAM 5 — Na/K PUMP ANIMATION
+============================================================ */
+const pumpStage = document.getElementById('pumpStage');
+const pumpBtn = document.getElementById('pumpBtn');
+let pumpBusy = false;
+pumpBtn.addEventListener('click', ()=>{
+  if(pumpBusy) return;
+  pumpBusy = true;
+  pumpStage.querySelectorAll('.ion-dot').forEach(d=>d.remove());
+  const naDots=[], kDots=[];
+  for(let i=0;i<3;i++){
+    const d = document.createElement('div');
+    d.className='ion-dot dot-na';
+    d.textContent='Na';
+    d.style.left = (30+i*14)+'%';
+    d.style.top = '72%';
+    pumpStage.appendChild(d);
+    naDots.push(d);
+  }
+  for(let i=0;i<2;i++){
+    const d = document.createElement('div');
+    d.className='ion-dot dot-k';
+    d.textContent='K';
+    d.style.left = (60+i*14)+'%';
+    d.style.top = '20%';
+    pumpStage.appendChild(d);
+    kDots.push(d);
+  }
+  requestAnimationFrame(()=>{
+    setTimeout(()=>{
+      naDots.forEach((d,i)=>{ d.style.left=(30+i*14)+'%'; d.style.top='18%'; });
+      kDots.forEach((d,i)=>{ d.style.left=(60+i*14)+'%'; d.style.top='74%'; });
+      document.getElementById('pumpInfo').innerHTML = 'Cycle running: <b>3 Na⁺</b> pumped out, <b>2 K⁺</b> pumped in — ATP-dependent.';
+    }, 150);
+  });
+  setTimeout(()=>{
+    naDots.concat(kDots).forEach(d=>d.style.opacity='0');
+  }, 1500);
+  setTimeout(()=>{
+    naDots.concat(kDots).forEach(d=>d.remove());
+    document.getElementById('pumpInfo').innerHTML = 'Each cycle: 3 Na⁺ leave the cell, 2 K⁺ enter — powered by ATP.';
+    pumpBusy = false;
+  }, 2000);
+});
+
+/* ============================================================
+   DIAGRAM 6 — GATED CHANNELS
+============================================================ */
+const gateData = {
+  chemical:{trigger:'Binding of a specific ligand — e.g. acetylcholine (ACh) at the neuromuscular junction.', example:'Most common on the dendrites & soma of neurons, at synapses.'},
+  voltage:{trigger:'A change in the transmembrane potential.', example:'Opening of voltage-gated Na⁺ channels is the key step that generates an action potential.'},
+  mechanical:{trigger:'Physical distortion of the membrane surface.', example:'Found in sensory receptors that respond to touch, pressure & vibration.'}
+};
+let currentGate = 'chemical';
+const gateVisual = document.getElementById('gateVisual');
+const gateInfoEl = document.getElementById('gateInfo');
+function renderGateInfo(){
+  const g = gateData[currentGate];
+  gateInfoEl.innerHTML = '<b>Trigger:</b> '+g.trigger+'<br><b>Example:</b> '+g.example;
+}
+renderGateInfo();
+document.querySelectorAll('.gate-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    document.querySelectorAll('.gate-tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentGate = tab.dataset.key;
+    gateVisual.classList.remove('open');
+    renderGateInfo();
+  });
+});
+document.getElementById('gateBtn').addEventListener('click', ()=>{
+  gateVisual.classList.add('open');
+  setTimeout(()=>gateVisual.classList.remove('open'), 1200);
+});
+
+/* ============================================================
+   DIAGRAM 7 — GRADED POTENTIAL GRAPH
+============================================================ */
+const gradedCurves = {
+  weak:{ d:'M20,100 C100,100 150,100 180,80 C190,74 210,74 220,80 C250,100 300,100 380,100', peak:'-50 mV', y:'34', label:'Weak depolarizing stimulus'},
+  strong:{ d:'M20,100 C100,100 150,100 180,40 C190,25 210,25 220,40 C250,100 300,100 380,100', peak:'-20 mV', y:'22', label:'Strong depolarizing stimulus'},
+  hyper:{ d:'M20,100 C100,100 150,100 180,118 C190,126 210,126 220,118 C250,100 300,100 380,100', peak:'-80 mV', y:'140', label:'Hyperpolarizing stimulus'}
+};
+const gradedPath = document.getElementById('gradedPath');
+const gradedPeakLabel = document.getElementById('gradedPeakLabel');
+function setGraded(key){
+  const c = gradedCurves[key];
+  gradedPath.setAttribute('d', c.d);
+  gradedPeakLabel.setAttribute('y', c.y);
+  gradedPeakLabel.textContent = 'peak ≈ '+c.peak;
+  document.getElementById('gradedInfo').innerHTML = '<b>'+c.label+'</b> — amplitude decreases with distance from the stimulus site; spreads passively via local current.';
+}
+setGraded('weak');
+document.querySelectorAll('.graph-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.graph-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    setGraded(btn.dataset.key);
+  });
+});
+
+/* ============================================================
+   MINI MAP
+============================================================ */
+const mmData = {
+  center:{title:'Nervous System Physiology', items:['All neural tissue in the body, organized into CNS + PNS.', 'Functional unit: the neuron, supported by neuroglia.', 'Click any surrounding node to explore a branch.']},
+  cells:{title:'Cells & Anatomy', items:['Neuron: dendrite → soma → axon → axon terminal.', 'Glia: astrocyte, oligodendrocyte, microglia, ependymal, Schwann, satellite.', 'Node of Ranvier — gap in myelin enabling saltatory conduction.']},
+  cnspns:{title:'CNS & PNS', items:['CNS = brain + spinal cord — integration & higher functions.', 'PNS = all neural tissue outside the CNS.', 'Afferent (sensory) vs. efferent (motor) divisions.']},
+  ans:{title:'ANS Divisions', items:['Somatic NS → skeletal muscle (voluntary/involuntary).', 'Autonomic NS → smooth/cardiac muscle & glands.', 'Sympathetic = fight-or-flight; Parasympathetic = rest & digest.']},
+  membrane:{title:'Membrane Potential', items:['ECF high in Na⁺, Cl⁻; ICF high in K⁺, proteins⁻.', 'Resting potential ≈ -70 mV.', 'Na⁺/K⁺ ATPase: 3 Na⁺ out : 2 K⁺ in — adds to negativity.']},
+  channels:{title:'Channels & Graded Potentials', items:['Leak, chemically-, voltage- & mechanically-gated channels.', 'Depolarization (→0 mV+) vs. hyperpolarization (→more negative).', 'Local current spreads the effect; it decays with distance.']}
+};
+const mmPanel = document.getElementById('mmPanel');
+document.querySelectorAll('.mm-node').forEach(node=>{
+  node.addEventListener('click', ()=>{
+    document.querySelectorAll('.mm-node').forEach(n=>n.classList.remove('active'));
+    node.classList.add('active');
+    const d = mmData[node.dataset.key];
+    mmPanel.innerHTML = '<h4>'+d.title+'</h4><ul>'+d.items.map(i=>'<li>'+i+'</li>').join('')+'</ul>';
+  });
+});
+
+/* ============================================================
+   FLASHCARDS
+============================================================ */
+const flashData = [
+  {tag:'Anatomy', term:'Neuron', def:'The basic functional unit of the nervous system; conducts electrical impulses.'},
+  {tag:'Anatomy', term:'Neuroglia', def:'Supporting cells that separate and protect neurons — the glial cells.'},
+  {tag:'Organization', term:'CNS', def:'Brain and spinal cord; integrates, processes & coordinates sensory data and motor commands.'},
+  {tag:'Organization', term:'PNS', def:'All neural tissue outside the CNS; delivers sensory info to the CNS and carries motor commands to the periphery.'},
+  {tag:'Organization', term:'Afferent division', def:'Brings sensory information to the CNS from receptors in peripheral tissue & organs.'},
+  {tag:'Organization', term:'Efferent division', def:'Carries motor commands from the CNS to muscles & glands (effectors).'},
+  {tag:'ANS', term:'Somatic Nervous System (SNS)', def:'Controls voluntary and involuntary skeletal muscle contractions.'},
+  {tag:'ANS', term:'Autonomic Nervous System (ANS)', def:'The visceral motor system; involuntary regulation of smooth muscle, cardiac muscle & glands.'},
+  {tag:'ANS', term:'Sympathetic division', def:"Mobilizes body systems during activity — 'fight or flight'."},
+  {tag:'ANS', term:'Parasympathetic division', def:"Conserves energy; promotes 'housekeeping' functions during rest."},
+  {tag:'Glia', term:'Oligodendrocyte', def:'Myelinates CNS axons; provides structural framework.'},
+  {tag:'Glia', term:'Astrocyte', def:'Maintains the blood-brain barrier, provides structural support, regulates ion/nutrient concentrations, absorbs neurotransmitters.'},
+  {tag:'Glia', term:'Microglia', def:'Removes cell debris, wastes & pathogens by phagocytosis.'},
+  {tag:'Glia', term:'Ependymal cell', def:'Lines ventricles & central canal; produces, circulates & monitors CSF.'},
+  {tag:'Glia', term:'Schwann cell', def:'Surrounds PNS axons; responsible for myelination; participates in nerve repair.'},
+  {tag:'Glia', term:'Satellite cell', def:'Surrounds neuron cell bodies in ganglia; regulates O₂, CO₂, nutrient & neurotransmitter levels.'},
+  {tag:'Anatomy', term:'Node of Ranvier', def:'Gap between adjacent myelinating cells along an axon.'},
+  {tag:'Membrane', term:'Transmembrane potential', def:'Voltage difference across the cell membrane due to unequal ion distribution.'},
+  {tag:'Membrane', term:'ECF ion composition', def:'High in Na⁺ and Cl⁻.'},
+  {tag:'Membrane', term:'ICF ion composition', def:'High in K⁺ and negatively charged proteins.'},
+  {tag:'Membrane', term:'Resting membrane potential', def:'Approximately -70 mV in a neuron.'},
+  {tag:'Membrane', term:'Sodium-Potassium ATPase', def:'Pumps 3 Na⁺ out and 2 K⁺ in using ATP; contributes to membrane negativity.'},
+  {tag:'Channels', term:'Leak (passive) channels', def:'Always-open Na⁺/K⁺ channels; permeability can shift with local conditions.'},
+  {tag:'Channels', term:'Chemically regulated channels', def:'Open/close on binding a specific chemical, e.g. ACh at the neuromuscular junction.'},
+  {tag:'Channels', term:'Voltage regulated channels', def:'Open/close with changes in transmembrane potential; key to the action potential.'},
+  {tag:'Channels', term:'Mechanically regulated channels', def:'Open/close with physical distortion of the membrane (touch, pressure, vibration).'},
+  {tag:'Graded potential', term:'Depolarization', def:'Shift of the transmembrane potential toward 0 mV or above.'},
+  {tag:'Graded potential', term:'Hyperpolarization', def:'Shift of the resting potential to a more negative value, e.g. -80 mV.'},
+  {tag:'Graded potential', term:'Local current', def:'Movement of ions along the inner/outer membrane surface that spreads a graded potential\u2019s effect.'},
+  {tag:'Graded potential', term:'Graded potential', def:'A local change in transmembrane potential that cannot spread far from the site of stimulus; its magnitude depends on stimulus strength.'}
+];
+let fcOrder = flashData.map((_,i)=>i);
+let fcIndex = 0;
+const fcCard = document.getElementById('fcCard');
+function shuffleArr(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+function renderFlash(){
+  const card = flashData[fcOrder[fcIndex]];
+  fcCard.classList.remove('flipped');
+  document.getElementById('fcTagFront').textContent = card.tag;
+  document.getElementById('fcTagBack').textContent = card.tag;
+  document.getElementById('fcTerm').textContent = card.term;
+  document.getElementById('fcDef').textContent = card.def;
+  document.getElementById('fcCount').textContent = (fcIndex+1)+' / '+flashData.length;
+  document.getElementById('fcTrackFill').style.width = (((fcIndex+1)/flashData.length)*100)+'%';
+}
+fcCard.addEventListener('click', ()=>fcCard.classList.toggle('flipped'));
+document.getElementById('fcNext').addEventListener('click', ()=>{
+  fcIndex = (fcIndex+1) % flashData.length;
+  renderFlash();
+});
+document.getElementById('fcPrev').addEventListener('click', ()=>{
+  fcIndex = (fcIndex-1+flashData.length) % flashData.length;
+  renderFlash();
+});
+document.getElementById('fcShuffle').addEventListener('click', ()=>{
+  fcOrder = shuffleArr(fcOrder);
+  fcIndex = 0;
+  renderFlash();
+});
+renderFlash();
+
+/* ============================================================
+   QUIZ BANK
+============================================================ */
+const quizData = [
+  {q:'What is the basic functional unit of the nervous system?', correct:'Neuron', wrong:['Astrocyte','Schwann cell','Microglia']},
+  {q:'Which cells support and protect neurons?', correct:'Neuroglia (glial cells)', wrong:['Osteocytes','Erythrocytes','Fibroblasts']},
+  {q:'The CNS consists of:', correct:'Brain and spinal cord', wrong:['Brain and nerves','Spinal cord and ganglia','Nerves and receptors']},
+  {q:'Which of these belongs to the PNS, not the CNS?', correct:'Peripheral nerves', wrong:['Brain','Spinal cord','Cerebrospinal fluid pathways of the cord']},
+  {q:'The PNS includes:', correct:'All neural tissue outside the CNS', wrong:['Only the brain','Only the spinal cord','Only sensory receptors']},
+  {q:'The afferent division of the PNS:', correct:'Brings sensory information to the CNS', wrong:['Carries motor commands to muscles','Regulates heart rate directly','Produces cerebrospinal fluid']},
+  {q:'The efferent division of the PNS:', correct:'Carries motor commands from the CNS to effectors', wrong:['Brings sensory info to the CNS','Lines the brain ventricles','Regulates the blood-brain barrier']},
+  {q:'The somatic nervous system controls:', correct:'Skeletal muscle contractions', wrong:['Smooth muscle only','Cardiac muscle only','Glandular secretion']},
+  {q:'The autonomic nervous system (ANS) is also called the:', correct:'Visceral motor system', wrong:['Somatic motor system','Special sensory system','General sensory system']},
+  {q:'The two divisions of the ANS are:', correct:'Sympathetic and parasympathetic', wrong:['Somatic and visceral','Afferent and efferent','Central and peripheral']},
+  {q:'Which ANS division mobilizes the body for "fight or flight"?', correct:'Sympathetic', wrong:['Parasympathetic','Somatic','Afferent']},
+  {q:'Which ANS division promotes "housekeeping" functions during rest?', correct:'Parasympathetic', wrong:['Sympathetic','Somatic','Afferent']},
+  {q:'Which glial cell myelinates axons in the CNS?', correct:'Oligodendrocyte', wrong:['Schwann cell','Astrocyte','Microglia']},
+  {q:'Which glial cell myelinates axons in the PNS?', correct:'Schwann cell', wrong:['Oligodendrocyte','Astrocyte','Ependymal cell']},
+  {q:'Which glial cells help maintain the blood-brain barrier?', correct:'Astrocytes', wrong:['Microglia','Ependymal cells','Satellite cells']},
+  {q:'Which glial cells act as phagocytes, removing debris and pathogens?', correct:'Microglia', wrong:['Astrocytes','Oligodendrocytes','Schwann cells']},
+  {q:'Which cells line the brain ventricles and the spinal cord\u2019s central canal?', correct:'Ependymal cells', wrong:['Satellite cells','Microglia','Astrocytes']},
+  {q:'Which glial cells surround neuron cell bodies in peripheral ganglia?', correct:'Satellite cells', wrong:['Oligodendrocytes','Astrocytes','Ependymal cells']},
+  {q:'The gap between adjacent Schwann cells along an axon is the:', correct:'Node of Ranvier', wrong:['Synapse','Axon hillock','Dendrite']},
+  {q:'The extracellular fluid (ECF) is high in:', correct:'Na⁺ and Cl⁻', wrong:['K⁺ and negatively charged proteins','Ca²⁺ only','Mg²⁺ only']},
+  {q:'The intracellular fluid (ICF) is high in:', correct:'K⁺ and negatively charged proteins', wrong:['Na⁺ and Cl⁻','Cl⁻ only','Glucose only']},
+  {q:'The normal resting membrane potential of a neuron is approximately:', correct:'-70 mV', wrong:['0 mV','+40 mV','-150 mV']},
+  {q:'Ions cross the cell membrane primarily through:', correct:'Membrane channels', wrong:['Direct diffusion through the lipid bilayer','Osmosis alone','The nucleus']},
+  {q:'Passive (leak) channels are:', correct:'Always open, though permeability can shift with local conditions', wrong:['Always closed','Only open with a voltage change','Found only in muscle']},
+  {q:'Chemically regulated (ligand-gated) channels open in response to:', correct:'Binding of a specific chemical (e.g. ACh)', wrong:['Voltage changes','Mechanical pressure','Temperature']},
+  {q:'Voltage-regulated channels open and close in response to:', correct:'Changes in transmembrane potential', wrong:['Chemical binding','Mechanical distortion','Osmotic pressure']},
+  {q:'Mechanically regulated channels respond to:', correct:'Physical distortion of the membrane', wrong:['Chemical binding','Voltage change','Temperature change']},
+  {q:'The sodium-potassium pump exchanges:', correct:'3 Na⁺ out for 2 K⁺ in', wrong:['2 Na⁺ out for 3 K⁺ in','Equal Na⁺ and K⁺','1 Na⁺ out for 1 K⁺ in']},
+  {q:'The Na⁺/K⁺ ATPase pump contributes to the:', correct:'Negativity of the transmembrane potential', wrong:['Positivity of the transmembrane potential','Depolarization at rest','Loss of the resting potential']},
+  {q:'A shift of the transmembrane potential toward 0 mV or above is called:', correct:'Depolarization', wrong:['Hyperpolarization','Repolarization only','Equilibrium']},
+  {q:'A shift of the resting potential to a more negative value (e.g. -80 mV) is called:', correct:'Hyperpolarization', wrong:['Depolarization','Threshold','Refractory period']},
+  {q:'Graded potentials are also known as:', correct:'Local potentials', wrong:['Action potentials','Equilibrium potentials','Resting potentials']},
+  {q:'The effect of a graded potential, as it moves away from the stimulus site, typically:', correct:'Decreases with distance', wrong:['Increases with distance','Stays constant','Reverses sign automatically']},
+  {q:'Movement of ions along the inner/outer membrane surface that spreads a graded potential\u2019s effect is called:', correct:'Local current', wrong:['Action current','Resting current','Synaptic current']},
+  {q:'Opening of voltage-regulated Na⁺ channels is the key step in generating a(n):', correct:'Action potential', wrong:['Graded potential only','Hyperpolarization only','Resting potential']}
+];
+document.getElementById('quizTotal').textContent = quizData.length;
+
+let quizOrder = [];
+let quizIdx = 0;
+let quizScore = 0;
+let quizAnswered = [];
+let quizOptionSets = [];
+
+function initQuiz(){
+  quizOrder = shuffleArr(quizData.map((_,i)=>i));
+  quizOptionSets = quizOrder.map(i=>{
+    const item = quizData[i];
+    return shuffleArr([item.correct, ...item.wrong]);
+  });
+  quizIdx = 0;
+  quizScore = 0;
+  quizAnswered = new Array(quizData.length).fill(false);
+  document.getElementById('quizScore').textContent = quizScore;
+  renderQuiz();
+}
+
+function renderQuiz(){
+  const area = document.getElementById('quizArea');
+  document.getElementById('quizTrackFill').style.width = ((quizIdx)/quizData.length*100)+'%';
+
+  if(quizIdx >= quizData.length){
+    area.innerHTML =
+      '<div class="quiz-done"><h3>Done — '+quizScore+' / '+quizData.length+'</h3>'+
+      '<p>Reshuffle to try again with fresh answer positions.</p>'+
+      '<button class="gate-btn" id="quizDoneRestart">Reshuffle &amp; restart</button></div>';
+    document.getElementById('quizDoneRestart').addEventListener('click', initQuiz);
+    document.getElementById('quizTrackFill').style.width='100%';
+    return;
+  }
+
+  const dataIdx = quizOrder[quizIdx];
+  const item = quizData[dataIdx];
+  const options = quizOptionSets[quizIdx];
+  const already = quizAnswered[quizIdx];
+
+  let optsHtml = options.map((opt,i)=>{
+    const letter = String.fromCharCode(65+i);
+    return '<button class="q-opt" data-opt="'+i+'"><span class="k">'+letter+'</span><span>'+opt+'</span></button>';
+  }).join('');
+
+  area.innerHTML =
+    '<div class="q-card">'+
+      '<div class="q-num">Question '+(quizIdx+1)+' of '+quizData.length+'</div>'+
+      '<div class="q-text">'+item.q+'</div>'+
+      '<div class="q-options">'+optsHtml+'</div>'+
+      '<div class="q-feedback" id="qFeedback"></div>'+
+      '<div class="q-nav">'+
+        '<button class="q-btn" id="qPrev" '+(quizIdx===0?'disabled':'')+'>← Previous</button>'+
+        '<button class="q-btn" id="qNext">Next →</button>'+
+      '</div>'+
+    '</div>';
+
+  document.getElementById('qPrev').addEventListener('click', ()=>{ quizIdx--; renderQuiz(); });
+  document.getElementById('qNext').addEventListener('click', ()=>{ quizIdx++; renderQuiz(); });
+
+  const optBtns = area.querySelectorAll('.q-opt');
+  if(already){
+    lockOptions(optBtns, options, item.correct, null);
+  }
+  optBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(quizAnswered[quizIdx]) return;
+      quizAnswered[quizIdx] = true;
+      const chosen = options[parseInt(btn.dataset.opt)];
+      if(chosen === item.correct){
+        quizScore++;
+        document.getElementById('quizScore').textContent = quizScore;
+        document.getElementById('qFeedback').textContent = 'Correct.';
+      } else {
+        document.getElementById('qFeedback').textContent = 'Not quite — correct answer highlighted.';
+      }
+      lockOptions(optBtns, options, item.correct, chosen);
+    });
+  });
+}
+
+function lockOptions(optBtns, options, correct, chosen){
+  optBtns.forEach((b,i)=>{
+    b.setAttribute('disabled','true');
+    if(options[i] === correct) b.classList.add('correct');
+    else if(options[i] === chosen) b.classList.add('incorrect');
+  });
+}
+
+document.getElementById('quizRestart').addEventListener('click', initQuiz);
+initQuiz();
+</script>
+</body>
+</html>
